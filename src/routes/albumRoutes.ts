@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   const albums = await Album.findAll();
-  const songs = await Song.findAll()
+  const songs = await Song.findAll();
   res.render('album', { albums, songs });
 });
 

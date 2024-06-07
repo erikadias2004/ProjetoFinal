@@ -18,20 +18,21 @@ const albumController = {
 
   async addSongToAlbum(req: Request, res: Response) {
     try {
-      const { AlbumId, SongId } = req.body;
-  
-      if (!AlbumId || !SongId) {
+      const { albumId, songId } = req.body;
+      console.log(albumId, songId)
+
+      if (!albumId || !songId) {
         return res.status(400).send('IDs de Álbum ou Música não fornecidos.');
       }
   
-      const album = await Album.findByPk(AlbumId);
-      const song = await Song.findByPk(SongId);
+      const album = await Album.findByPk(albumId);
+      const song = await Song.findByPk(songId);
   
       if (!album || !song) {
         return res.status(404).send('Álbum ou Música não encontrado.');
       }
   
-      await AlbumSong.create({ albumId: AlbumId, songId: SongId });
+      await AlbumSong.create({ AlbumId: albumId, SongId: songId });
   
       res.redirect('/albums');
     } catch (error) {

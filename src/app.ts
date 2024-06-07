@@ -11,7 +11,8 @@ app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(express.static('src/public'));
 
 app.use('/artistas', artistRoutes);
 app.use('/albums', albumRoutes);
