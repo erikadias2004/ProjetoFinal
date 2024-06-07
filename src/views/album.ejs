@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbuns</title>
+</head>
+<body>
+  <h1>Álbuns</h1>
+  <form action="/albums/create" method="POST">
+    <input type="text" name="title" placeholder="Título do Álbum" required>
+    <button type="submit">Adicionar Álbum</button>
+  </form>
+
+  <h2>Lista de Álbuns</h2>
+  <ul>
+    <% albums.forEach(album => { %>
+      <li>
+        <%= album.title %>
+        <form action="/albums/delete/<%= album.id %>" method="POST" style="display:inline;">
+          <button type="submit">Deletar</button>
+        </form>
+        <form action="/albums/update/<%= album.id %>" method="POST" style="display:inline;">
+          <input type="text" name="title" placeholder="Novo Título" required>
+          <button type="submit">Atualizar</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+  <h2>Associar música ao album</h2>
+<form action="/albums/add-song" method="POST">
+  <label for="SongId">Selecione a música:</label>
+  <select name="SongId" id="SongId" required>
+    <% songs.forEach(song => { %>
+      <option value="<%= song.id %>"><%= song.title %></option>
+    <% }); %>
+  </select>
+
+  <label for="AlbumId">Selecione o Álbum:</label>
+  <select name="AlbumId" id="AlbumId" required>
+    <% albums.forEach(album => { %>
+      <option value="<%= album.id %>"><%= album.title %></option>
+    <% }); %>
+  </select>
+  <button type="submit">Associar</button>
+</form>
+</html>

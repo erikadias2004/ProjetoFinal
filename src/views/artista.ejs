@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artists</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <h1>Lista de Artistas</h1>
+  <ul>
+    <% artists.forEach(artist => { %>
+      <li>
+        <%= artist.name %>
+        <form action="/artistas/update/<%= artist.id %>" method="POST" style="display:inline;">
+          <input type="text" name="name" value="<%= artist.name %>" required>
+          <button type="submit">Atualizar</button>
+        </form>
+        <form action="/artistas/delete/<%= artist.id %>" method="POST" style="display:inline;">
+          <button type="submit">Deletar</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+
+  <h2>Adicionar Novo Artista</h2>
+  <form action="/artistas/create" method="POST">
+    <input type="text" name="name" placeholder="Nome do Artista" required>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <h2>Associar Álbum ao Artista</h2>
+<form action="/artistas/add-album" method="POST">
+  <label for="artistId">Selecione o Artista:</label>
+  <select name="artistId" id="artistId" required>
+    <% artists.forEach(artist => { %>
+      <option value="<%= artist.id %>"><%= artist.name %></option>
+    <% }); %>
+  </select>
+
+  <label for="albumId">Selecione o Álbum:</label>
+  <select name="albumId" id="albumId" required>
+    <% albums.forEach(album => { %>
+      <option value="<%= album.id %>"><%= album.title %></option>
+    <% }); %>
+  </select>
+  <button type="submit">Associar</button>
+</form>
+  </form>
+</body>
+</html>
